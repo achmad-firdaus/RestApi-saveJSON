@@ -26,11 +26,47 @@ Pembahasan:
     - Bila kamu belum punya postman, kamu bisa download postman dengan versi berapapun pada link berikut : https://www.postman.com/downloads/
     - Bila kamu sudah punya postman, kamu bisa membuka postman dan isikan pada kolom input url dengan url yang sudah ada pada table yang ada di https://thirtyseven-api.herokuapp.com/index.php/apiv2 kamu bisa cari parent kamu dikolom pencarian dan kamu bisa copy paste pada kolom GET/POST ataupun kamu bisa menggunakan url berikut : https://njse.herokuapp.com/apv1/secret/[Your-Token]/[Your-Parent] (kamu bisa rubah bagian [Your-Token] dengan Token yang kamu dapat saat membuat parent, kamu bisa rubah pada bagian [Your-Parent] dengan nama parent yang sudah kamu buat),
     - Setelah kamu isikan link, kamu bisa rubah dengan klik bagian "GET" akan ada dropdown dan pilih "POST" dan kamu bisa klik bagian "Body" lalu klik "raw" setalah itu isikan field sesuai keinginan kamu, contoh:
-      - {
+    -      {
+            "field-keinginanmu1": "record-keinginanmu",
+            "field-keinginanmu2": "record-keinginanmu",
+            "field-keinginanmu3": "record-keinginanmu"
+          }
+    - Setelah sudah membuat field sesuai keinginanmu, kamu bisa klik "send" dan kamu akan mendapatkan response dengan id field kamu yang dimana id tersebut bisa dugunakan untuk get/read spesifik data.
+ 
+ 3. Read all data dengan filed yang sudah kamu buat. Kamu memiliki 2 cara, 1.Dengan postman, 2.Dengan ESP
+  - Saya akan bahas cara 1.Dengan postman terlebih dahulu,
+    - Bila kamu belum punya postman, kamu bisa download postman dengan versi berapapun pada link berikut : https://www.postman.com/downloads/
+    - Bila kamu sudah punya postman, kamu bisa membuka postman dan isikan pada kolom input url dengan url yang sudah ada pada table yang ada di https://thirtyseven-api.herokuapp.com/index.php/apiv2 kamu bisa cari parent kamu dikolom pencarian dan kamu bisa copy paste pada kolom GET/POST ataupun kamu bisa menggunakan url berikut : https://njse.herokuapp.com/apv1/secret/[Your-Token]/[Your-Parent] (kamu bisa rubah bagian [Your-Token] dengan Token yang kamu dapat saat membuat parent, kamu bisa rubah pada bagian [Your-Parent] dengan nama parent yang sudah kamu buat),
+    - Setelah kamu isikan link, kamu bisa rubah menjadi moethod "GET",
+    - Kamu bisa klik "send" dan kamu akan mendapatkan response dengan data yang sudah kamu buat.
+ 
+4. Read spesifik data dengan filed yang sudah kamu buat berdasarkan id pada field. Kamu memiliki 2 cara, 1.Dengan postman, 2.Dengan ESP
+  - Saya akan bahas cara 1.Dengan postman terlebih dahulu,
+    - Bila kamu belum punya postman, kamu bisa download postman dengan versi berapapun pada link berikut : https://www.postman.com/downloads/
+    - Bila kamu sudah punya postman, kamu bisa membuka postman dan isikan pada kolom input url dengan url yang sudah ada pada table yang ada di https://thirtyseven-api.herokuapp.com/index.php/apiv2 kamu bisa cari parent kamu dikolom pencarian dan kamu bisa copy paste pada kolom GET/POST ataupun kamu bisa menggunakan url berikut : https://njse.herokuapp.com/apv1/secret/[Your-Token]/[Your-Parent]/[Your-ID-Field] (kamu bisa rubah bagian [Your-Token] dengan Token yang kamu dapat saat membuat parent, kamu bisa rubah pada bagian [Your-Parent] dengan nama parent yang sudah kamu buat, kamu bisa rubah pada bagian [Your-ID-Field] dengan id field data yang sudah kamu create/buat
+    - Setelah kamu isikan link, kamu bisa rubah menjadi moethod "GET",
+    - Kamu bisa klik "send" dan kamu akan mendapatkan response dengan data yang sudah kamu buat.
+
+5. Update data sesuai request yang kamu inginkan. Kamu memiliki 2 cara, 1.Dengan postman, 2.Dengan ESP
+  - Saya akan bahas cara 1.Dengan postman terlebih dahulu,
+    - Bila kamu belum punya postman, kamu bisa download postman dengan versi berapapun pada link berikut : https://www.postman.com/downloads/
+    - Bila kamu sudah punya postman, kamu bisa membuka postman dan isikan pada kolom input url dengan url yang sudah ada pada table yang ada di https://thirtyseven-api.herokuapp.com/index.php/apiv2 kamu bisa cari parent kamu dikolom pencarian dan kamu bisa copy paste pada kolom GET/POST ataupun kamu bisa menggunakan url berikut : https://njse.herokuapp.com/apv1/secret/[Your-Token]/[Your-Parent] (kamu bisa rubah bagian [Your-Token] dengan Token yang kamu dapat saat membuat parent, kamu bisa rubah pada bagian [Your-Parent] dengan nama parent yang sudah kamu buat,
+    - Setelah kamu isikan link, kamu bisa rubah dengan klik bagian "GET" akan ada dropdown dan pilih "PATCH" dan kamu bisa klik bagian "Body" lalu klik "raw" setalah itu isikan field sesuai data yang ingin kamu rubah, contoh:
+    -     Data asli yang kamu punya:
+          {
           "field-keinginanmu1": "record-keinginanmu",
           "field-keinginanmu2": "record-keinginanmu",
           "field-keinginanmu3": "record-keinginanmu"
-        }
-    - Setelah sudah membuat field sesuai keinginanmu, kamu bisa klik "send" dan kamu akan mendapatkan response.
- 
- 3. Read all data dengan filed yang sudah kamu buat,
+          }
+          
+          Yang ingin kamu rubah pada bagian "field-keinginanmu2" yang isinya "record-keinginanmu" menjadi "record-keinginanmu-update", kamu bisa isikan raw berikut:
+          {
+          "field-keinginanmu2": "record-keinginanmu-update"
+          }
+    - Kamu bisa klik "send" dan kamu akan mendapatkan response dengan data yang sudah kamu buat,
+    -     Data kamu akan menjadi seperti ini setelah diupdate:
+          {
+          "field-keinginanmu1": "record-keinginanmu",
+          "field-keinginanmu2": "record-keinginanmu-update",
+          "field-keinginanmu3": "record-keinginanmu"
+          }
