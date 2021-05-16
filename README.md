@@ -152,4 +152,8 @@ Pembahasan:
                   }
               ]
           }
-  
+          
+7. Export CSV
+  -  Kamu bisa membuka browser dan isiskan url seperti ini https://njse.herokuapp.com/apv1/export/[Your-Token]/[Your-Parent]/csv
+  -  kamu bisa rubah bagian [Your-Token] dengan Token yang kamu dapat saat membuat parent, kamu bisa rubah pada bagian [Your-Parent] dengan nama parent yang sudah kamu buat,
+  -  Kamu bisa klik enter atau ok
