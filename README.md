@@ -157,3 +157,13 @@ Pembahasan:
   -  Kamu bisa membuka browser dan isiskan url seperti ini https://njse.herokuapp.com/apv1/export/[Your-Token]/[Your-Parent]/csv
   -  kamu bisa rubah bagian [Your-Token] dengan Token yang kamu dapat saat membuat parent, kamu bisa rubah pada bagian [Your-Parent] dengan nama parent yang sudah kamu buat,
   -  Kamu bisa klik enter atau ok
+
+ 
+8. Validasi
+    1. Pada frontend:
+        - Nama parent tidak boleh sama, mohon cek terlebih dahulu pada tabel untuk nama parent yang belum digunakan,
+        - Bila ingin mengedit nama parent, maka cek terlebih dahulu pada tabel untuk nama parent yang belum digunakan dan cek data kamu dengan nama parent dan token apakah masih ada, bila data masih ada maka kamu belum bisa merubah/mengedit nama parent.
+
+    2. Pada Backend:
+        - Nama parent dan token yang dimasukan pada link harus sesuai dengan pembuatan pertama kali,
+        - Pada saat mengirimkan data harus menggunakan data JSON, bila tidak menggunakan data JSON maka kamu tidak bisa melakukan Create dan Update
