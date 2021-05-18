@@ -53,6 +53,73 @@ Pembahasan:
           }
     - _id, date, time, akan terbuat otomatis setiap kamu insert data.
  
+   - Saya akan bahas cara 2.Dengan ESP8266,
+   - Ganti "ssid", 'password' dengan Wifi kamu dan "parent", "token" dengan parent name dan token yang sudah kamu buat:
+   - 
+          //Bre semangat bre, by achmad
+
+          #include <ESP8266WiFi.h>
+          #include <ESP8266HTTPClient.h>
+          #include <ArduinoJson.h>
+
+          const char* ssid = "resource";
+          const char* password = "cabebawang_5";
+          String url = "http://njse.herokuapp.com/apv1/secret";
+          String parent = "achmad";
+          String token = "59613c70-675a-4a58-937f-0aad5ac2621e";
+
+          StaticJsonBuffer<10000> jsonBuffer;
+
+          void setup() {
+            Serial.begin(115200);
+            delay(10);
+            Serial.println();
+            Serial.println();
+            Serial.print("Connecting to ");
+            Serial.println(ssid);
+
+            WiFi.mode(WIFI_STA);
+            WiFi.begin(ssid, password);
+            while (WiFi.status() != WL_CONNECTED) {
+              delay(500);
+              Serial.print(".");
+            }
+
+            Serial.println("");
+            Serial.println("WiFi connected");
+            Serial.println("IP address: ");
+            Serial.println(WiFi.localIP());
+            Serial.println("Hit 'a' for get data");
+          }
+
+          void loop() {
+            delay(5000);
+            if (Serial.available() > 0) {
+              int inByte = Serial.read();
+              switch (inByte) {
+                case 'a':
+                  CREATE();
+                  Serial.println("Create data");
+              }
+            }
+          }
+
+          void CREATE() {
+            String urli = url + "/" + token + "/" + parent;
+            WiFiClient client;
+            String postData = "{\"desc\":\"ini contoh\",\"contoh1\":0}";
+            HTTPClient http;
+            http.begin(urli);
+            http.addHeader("Content-Type", "application/json;charset=utf-8");
+            int httpCode = http.POST(postData);
+            Serial.println(httpCode);
+            String payload = http.getString();
+            Serial.println(payload);    
+            http.end();
+            delay(9000);
+          }
+   - Setelah kamu upload, kamu bisa cek serial monitor (pilih tools -> Serial Monitor) kamu rubah baud menjadi 115200 baud pada bagian bawah serial monitor
+
  3. Read all data dengan field yang sudah kamu buat. Kamu memiliki 2 cara, 1.Dengan postman, 2.Dengan ESP
   - Saya akan bahas cara 1.Dengan postman terlebih dahulu,
     - Bila kamu belum punya postman, kamu bisa download postman dengan versi berapapun pada link berikut : https://www.postman.com/downloads/
@@ -73,7 +140,84 @@ Pembahasan:
               ]
           }
      - _id, date, time, akan terbuat otomatis setiap kamu insert data.
-     
+
+   - Saya akan bahas cara 2.Dengan ESP8266,
+   - Ganti "ssid", 'password' dengan Wifi kamu dan "parent", "token" dengan parent name dan token yang sudah kamu buat:
+   - 
+              //Bre semangat bre, by achmad
+              #include <ESP8266WiFi.h>
+              #include <ESP8266HTTPClient.h>
+              #include <ArduinoJson.h>
+
+              const char* ssid = "resource";
+              const char* password = "cabebawang_5";
+              String url = "http://njse.herokuapp.com/apv1/secret";
+              String parent = "achmad";
+              String token = "59613c70-675a-4a58-937f-0aad5ac2621e";
+
+              StaticJsonBuffer<10000> jsonBuffer;
+
+              void setup() {
+                Serial.begin(115200);
+                delay(10);
+                Serial.println();
+                Serial.println();
+                Serial.print("Connecting to ");
+                Serial.println(ssid);
+
+                WiFi.mode(WIFI_STA);
+                WiFi.begin(ssid, password);
+                while (WiFi.status() != WL_CONNECTED) {
+                  delay(500);
+                  Serial.print(".");
+                }
+
+                Serial.println("");
+                Serial.println("WiFi connected");
+                Serial.println("IP address: ");
+                Serial.println(WiFi.localIP());
+                Serial.println("Hit 'a' for get data");
+              }
+
+              void loop() {
+                delay(5000);
+                if (Serial.available() > 0) {
+                  int inByte = Serial.read();
+                  switch (inByte) {
+                    case 'a':
+                      GET();
+                      Serial.println("Get data");
+                  }
+                }
+              }
+
+              void GET() {
+                String urli = url + "/" + token + "/" + parent;
+                Serial.println(urli);
+                HTTPClient http;
+                http.begin(urli);  
+                int httpCode = http.GET();
+                if (httpCode > 0) {
+                  String payload = http.getString();
+                  JsonObject& root = jsonBuffer.parseObject(payload);
+                  if (!root.success()) {
+                    Serial.println("parseObject() failed");
+                    return;
+                  } else {
+                      Serial.println("From RestApi: ");
+                      String sensor = root["response"];
+                      Serial.println(sensor);
+                  }
+                } else {
+                    Serial.println("Error: ");
+                    String payload = http.getString();
+                    Serial.println(payload);
+                }
+                http.end();
+                delay(9000);
+              }
+   - Setelah kamu upload, kamu bisa cek serial monitor (pilih tools -> Serial Monitor) kamu rubah baud menjadi 115200 baud pada bagian bawah serial monitor
+
 4. Read spesifik data dengan field yang sudah kamu buat berdasarkan id pada field. Kamu memiliki 2 cara, 1.Dengan postman, 2.Dengan ESP
   - Saya akan bahas cara 1.Dengan postman terlebih dahulu,
     - Bila kamu belum punya postman, kamu bisa download postman dengan versi berapapun pada link berikut : https://www.postman.com/downloads/
