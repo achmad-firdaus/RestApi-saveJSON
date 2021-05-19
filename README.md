@@ -12,7 +12,7 @@ Berisi tentang:
 2. Create data dengan field bebas berapapun dan semau kamu,
 3. Read all data dengan filed yang sudah kamu buat,
 4. Read spesifik data dengan filed yang sudah kamu buat berdasarkan id pada field,
-5. Update data sesuai request yang kamu inginkan,
+5. Update data / penambahan field pada data sesuai request yang kamu inginkan,
 6. Delete spesifik data dengan filed yang sudah kamu buat berdasarkan id pada field,
 7. Export CSV,
 8. Validasi.
@@ -316,7 +316,7 @@ Pembahasan:
             }
    - Setelah kamu upload, kamu bisa cek serial monitor (pilih tools -> Serial Monitor) kamu rubah baud menjadi 115200 baud pada bagian bawah serial monitor
 
-5. Update data sesuai request yang kamu inginkan. Kamu memiliki 2 cara, 1.Dengan postman, 2.Dengan ESP
+5. Update data / penambahan field pada data sesuai request yang kamu inginkan. Kamu memiliki 2 cara, 1.Dengan postman, 2.Dengan ESP
   - Saya akan bahas cara 1.Dengan postman terlebih dahulu,
     - Bila kamu belum punya postman, kamu bisa download postman dengan versi berapapun pada link berikut : https://www.postman.com/downloads/
     - Bila kamu sudah punya postman, kamu bisa membuka postman dan isikan pada kolom input url dengan url yang sudah ada pada table yang ada di https://thirtyseven-api.herokuapp.com/apiv2 kamu bisa cari parent kamu dikolom pencarian dan kamu bisa copy paste pada kolom GET/POST ataupun kamu bisa menggunakan url berikut : https://njse.herokuapp.com/apv1/secret/[Your-Token]/[Your-Parent] (kamu bisa rubah bagian [Your-Token] dengan Token yang kamu dapat saat membuat parent, kamu bisa rubah pada bagian [Your-Parent] dengan nama parent yang sudah kamu buat,
@@ -341,7 +341,8 @@ Pembahasan:
     -     {
               "message": "Data has been update",
               "response": {
-                  "field-keinginanmu2": "record-keinginanmu-update"
+                  "field-keinginanmu2": "record-keinginanmu-update",
+                  "field-keinginanmu4": "record-keinginanmu"
               }
           }
     - Data kamu akan menjadi seperti ini setelah diupdate:
@@ -351,11 +352,99 @@ Pembahasan:
             "field-keinginanmu2": "record-keinginanmu-update",
             "field-keinginanmu3": "record-keinginanmu",
             "date": "5/16/2021",
-            "time": "2:37:36 PM"
+            "time": "2:37:36 PM",
+            "field-keinginanmu4": "record-keinginanmu"
           }
 
-6. Delete spesifik data dengan field yang sudah kamu buat berdasarkan id pada field. Kamu memiliki 2 cara, 1.Dengan postman, 2.Dengan ESP
-  - Saya akan bahas cara 1.Dengan postman terlebih dahulu,
+   - Saya akan bahas cara 2.Dengan ESP8266,
+   - Ganti "ssid", 'password' dengan Wifi kamu, ganti "id" pada arduino dengan "_id" pada data yang sudah kamu buat dan ganti "parent", "token" dengan parent name dan token yang sudah kamu buat:
+   - 
+          //Bre semangat bre, by achmad
+
+          #include <ESP8266WiFi.h>
+          #include <ESP8266HTTPClient.h>
+          #include <ArduinoJson.h>
+
+          const char* ssid = "resource";
+          const char* password = "cabebawang_5";
+          String url = "http://njse.herokuapp.com/apv1/secret";
+          String parent = "achmad";
+          String token = "59613c70-675a-4a58-937f-0aad5ac2621e";
+          String id = "60a38d321c3c7100152360f7";
+
+          StaticJsonBuffer<10000> jsonBuffer;
+
+          void setup() {
+            Serial.begin(115200);
+            delay(10);
+            Serial.println();
+            Serial.println();
+            Serial.print("Connecting to ");
+            Serial.println(ssid);
+
+            WiFi.mode(WIFI_STA);
+            WiFi.begin(ssid, password);
+            while (WiFi.status() != WL_CONNECTED) {
+              delay(500);
+              Serial.print(".");
+            }
+
+            Serial.println("");
+            Serial.println("WiFi connected");
+            Serial.println("IP address: ");
+            Serial.println(WiFi.localIP());
+            Serial.println("Hit 'a' for Update values 0");
+            Serial.println("Hit 'b' for Update values 1");
+          }
+
+          void loop() {
+            delay(5000);
+            if (Serial.available() > 0) {
+              int inByte = Serial.read();
+              switch (inByte) {
+                case 'a':
+                  UPDATE_1();
+                  Serial.println("Update values 0");
+                  break;
+                case 'b':
+                  UPDATE_2();
+                  Serial.println("Update values 1");
+              }
+            }
+          }
+
+          void UPDATE_1() {
+             String urli = url + "/" + token + "/" + parent + "/" + id;
+             WiFiClient client;
+             String postData = "{\"desc\":\"ini contoh update values 0\",\"contoh1\":0}";
+             HTTPClient http;
+             http.begin(urli);
+             http.addHeader("Content-Type", "application/json;charset=utf-8");
+             int httpCode = http.PATCH(postData);
+             Serial.println(httpCode);
+             String payload = http.getString();
+             Serial.println(payload);    
+             http.end();
+             delay(9000);
+          }
+          void UPDATE_2() {
+             String urli = url + "/" + token + "/" + parent + "/" + id;
+             WiFiClient client;
+             String postData = "{\"desc\":\"ini contoh update values 1\",\"contoh1\":1}";
+             HTTPClient http;
+             http.begin(urli);
+             http.addHeader("Content-Type", "application/json;charset=utf-8");
+             int httpCode = http.PATCH(postData);
+             Serial.println(httpCode);
+             String payload = http.getString();
+             Serial.println(payload);    
+             http.end();
+             delay(9000);
+          }
+   - Setelah kamu upload, kamu bisa cek serial monitor (pilih tools -> Serial Monitor) kamu rubah baud menjadi 115200 baud pada bagian bawah serial monitor
+
+6. Delete spesifik data dengan field yang sudah kamu buat berdasarkan id pada field.
+  - Saya akan bahas dengan postman,
     - Bila kamu belum punya postman, kamu bisa download postman dengan versi berapapun pada link berikut : https://www.postman.com/downloads/
     - Bila kamu sudah punya postman, kamu bisa membuka postman dan isikan pada kolom input url dengan url yang sudah ada pada table yang ada di https://thirtyseven-api.herokuapp.com/apiv2 kamu bisa cari parent kamu dikolom pencarian dan kamu bisa copy paste pada kolom GET/POST ataupun kamu bisa menggunakan url berikut : https://njse.herokuapp.com/apv1/secret/[Your-Token]/[Your-Parent]/[Your-ID-Field] (kamu bisa rubah bagian [Your-Token] dengan Token yang kamu dapat saat membuat parent, kamu bisa rubah pada bagian [Your-Parent] dengan nama parent yang sudah kamu buat, kamu bisa rubah pada bagian [Your-ID-Field] dengan id field data yang sudah kamu create/buat
     - Setelah kamu isikan link, kamu bisa rubah dengan klik bagian "GET" akan ada dropdown dan pilih "DELETE",
@@ -375,12 +464,11 @@ Pembahasan:
                   }
               ]
           }
-          
+
 7. Export CSV
   -  Kamu bisa membuka browser dan isiskan url seperti ini https://njse.herokuapp.com/apv1/export/[Your-Token]/[Your-Parent]/csv
   -  kamu bisa rubah bagian [Your-Token] dengan Token yang kamu dapat saat membuat parent, kamu bisa rubah pada bagian [Your-Parent] dengan nama parent yang sudah kamu buat,
   -  Kamu bisa klik enter atau ok
-
  
 8. Validasi
     1. Pada frontend:
