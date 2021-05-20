@@ -36,10 +36,6 @@ void setup() {
   Serial.println("WiFi connected");
   Serial.println("IP address: ");
   Serial.println(WiFi.localIP());
-  Serial.println("Hit 'a' for turn off led biru");
-  Serial.println("Hit 'b' for turn on led biru");
-  Serial.println("Hit 'c' for turn off led merah");
-  Serial.println("Hit 'd' for turn on led merah");
 }
 
 void loop() {
