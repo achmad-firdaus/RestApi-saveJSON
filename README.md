@@ -2,10 +2,22 @@
 
 # HOW TO USE
 # Menyimpan dengan RestApi
+
+# ~ Saya membuat Rest Api dan Mempublikasikan secara GRATIS.
+
 Saya mengerjakan program pada tanggal 25 april 2021 sampai 9 mei 2021 dengan frontend Codeigniter dan backend Express
 Cara penggunakan API untuk menyinpan data dengan cepat dan mudah menggunakan JSON tanpa DBMS.
 
 Saya merevisi program tanggal 13 mei 2021 samapi 15 mei 2021, awalanya saya tidak menggunakan database karena saya pikir hanya menggunakan file JSON itu lebih cepat dalam memproses data tetapi pada hosting ada timer setiap 30 menit akan update file yang ada perubahan/penambahan akan terhapus dan menjadi original file. Maka saya putuskan untuk menggunakan mongoDB, agar field bisa disesuaikan oleh pengguna.
+
+Kegunaan:
+- Untuk mempermudah penyimpanan secara public dengan mikrokontroler/web,
+- Mengurangi beban kerja mikrokontroler/server,
+- Memudahkan pembelajaran dan pembuatan project secara public.
+- Untuk mikrokontroler bisa kontrol secara public.
+- Untuk mikrokontroler bisa mempertahankan data, misal: data awal 1=nyala, pada saat mikrokontroler mati dan hidup lagi atau ada pergantian mikrokontroler maka data tetap aman dan saat mikrokontroler dinyalakan kembali akan bekerja sesuai data sebelumnya yaitu 1=nyala.
+- Mempercepat dan mempermudah proses pengiriman data.
+
 
 Berisi tentang:
 1. Create Parent untuk mendapatkan token yang akan digunakan untuk menyimpan data, agar data yang kamu buat aman dan tidak bisa dilihat oleh oarang lain,
